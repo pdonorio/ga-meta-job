@@ -1,0 +1,19 @@
+name: Meta app deploy
+
+on:
+  pull_request:
+
+permissions:
+  id-token: write
+  contents: write
+
+concurrency:
+  group: meta-parent
+
+jobs:
+  meta-deploy:
+    name: Meta deploy test parent
+    runs-on: ubuntu-latest
+    steps:
+      - name: Just a test
+        run: echo hello

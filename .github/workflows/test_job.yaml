@@ -1,0 +1,29 @@
+name: Test workflow
+
+on:
+  workflow_run:
+    workflows:
+      - "Meta app deploy"
+    types:
+      - completed
+  workflow_dispatch:
+    inputs:
+      target_env:
+        description: "Environment to deploy to"
+        required: true
+        default: "nightly"
+
+permissions:
+  id-token: write
+  contents: write
+
+concurrency:
+  group: deploy-child
+
+jobs:
+  test-app-build-deploy:
+    name: Meta deploy test child
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install the deps
+        run: echo "This is a test run for $inputs.target_env"
