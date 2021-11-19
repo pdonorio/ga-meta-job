@@ -3,9 +3,9 @@ name: Meta app deploy
 on:
   push:
 
-permissions:
-  id-token: write
-  contents: write
+# permissions:
+#   id-token: write
+#   contents: write
 
 concurrency:
   group: meta-parent
@@ -17,7 +17,8 @@ jobs:
   #   steps:
   #     - name: Just a test
   #       run: echo hello
-  call-workflow-1:
+  call-workflow:
+    name: calling another workflow
     uses: pdonorio/ga-meta-job/.github/workflows/test_job.yaml@main
     with:
       target_env: stage
