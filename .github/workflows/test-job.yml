@@ -45,4 +45,6 @@ jobs:
           git branch
           git log -n 1 --oneline
       - name: Test parameters
-        run: echo "This is a test run for *${{ github.event.inputs.target_env }}*"
+        run: echo "This is a test run for *${{ inputs.target_env || github.event.inputs.target_env }}*"
+        # NOTE: inputs.target_env is from workflow_call
+        # while github.event.inputs.target_env is from workflow_dispatch
