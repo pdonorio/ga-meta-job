@@ -8,6 +8,7 @@ on:
         description: "Environment to deploy to"
         required: true
         default: "nightly"
+  # DOES NOT WORK
   # workflow_run:
   #   workflows:
   #     - "Meta app deploy"
@@ -21,11 +22,12 @@ on:
         required: true
         default: "nightly"
 
-permissions:
-  id-token: write
-  contents: write
+# permissions:
+#   id-token: write
+#   contents: write
 
-# NOTE: (concurrency is not supported for called workflows)
+# NOTE: concurrency is not supported for called workflows
+# TODO: to be investigated
 # concurrency:
 #   group: deploy-child
 

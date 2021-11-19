@@ -1,31 +1,35 @@
 name: Meta app deploy
 
 on:
-  push:
+  # push:
+  workflow_dispatch:
+    inputs:
+      target_env:
+        type: choice
+        description: "Environment to deploy to"
+        required: true
+        default: "nightly"
+        options:
+          - "nightly"
+          - "dev"
+          - "stage"
+          - "scratch"
 
-# permissions:
-#   id-token: write
-#   contents: write
+permissions:
+  id-token: write
+  contents: write
 
 concurrency:
   group: meta-parent
 
 jobs:
-  do-it:
-    name: blah
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Run a one-line script
-        run: echo Hello, world!
-  # meta-deploy:
-  #   name: Meta deploy test parent
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Just a test
-  #       run: echo hello
-  call-workflow:
+  call-workflow-1:
     name: call
     uses: pdonorio/ga-meta-job/.github/workflows/test-job.yml@main
     with:
-      target_env: stage
+      target_env: ${{ inputs.target_env }}
+  call-workflow-2:
+    name: call
+    uses: pdonorio/ga-meta-job/.github/workflows/test-job.yml@main
+    with:
+      target_env: nightly
