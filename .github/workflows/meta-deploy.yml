@@ -11,6 +11,13 @@ concurrency:
   group: meta-parent
 
 jobs:
+  do-it:
+    name: blah
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run a one-line script
+        run: echo Hello, world!
   # meta-deploy:
   #   name: Meta deploy test parent
   #   runs-on: ubuntu-latest
@@ -18,7 +25,7 @@ jobs:
   #     - name: Just a test
   #       run: echo hello
   call-workflow:
-    name: calling another workflow
-    uses: pdonorio/ga-meta-job/.github/workflows/test_job.yaml@main
+    name: call
+    uses: pdonorio/ga-meta-job/.github/workflows/test-job.yml@main
     with:
       target_env: stage
