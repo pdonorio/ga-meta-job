@@ -45,4 +45,4 @@ jobs:
           git branch
           git log -n 1 --oneline
       - name: Test parameters
-        run: echo "This is a test run for ${{ ${{ github.event.inputs.target_env }}"
+        run: echo "This is a test run for *${{ github.event.inputs.target_env }}*"
