@@ -4,6 +4,7 @@ on:
   workflow_call:
     inputs:
       target_env:
+        type: string
         description: "Environment to deploy to"
         required: true
         default: "nightly"
@@ -15,6 +16,7 @@ on:
   workflow_dispatch:
     inputs:
       target_env:
+        type: string
         description: "Environment to deploy to"
         required: true
         default: "nightly"
