@@ -11,9 +11,13 @@ concurrency:
   group: meta-parent
 
 jobs:
-  meta-deploy:
-    name: Meta deploy test parent
-    runs-on: ubuntu-latest
-    steps:
-      - name: Just a test
-        run: echo hello
+  # meta-deploy:
+  #   name: Meta deploy test parent
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Just a test
+  #       run: echo hello
+  call-workflow-1:
+    uses: pdonorio/ga-meta-job/.github/workflows/test_job.yaml
+    with:
+      target_env: stage

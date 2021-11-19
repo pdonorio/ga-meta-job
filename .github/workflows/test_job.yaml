@@ -1,11 +1,17 @@
 name: Test workflow
 
 on:
-  workflow_run:
-    workflows:
-      - "Meta app deploy"
-    types:
-      - completed
+  workflow_call:
+    inputs:
+      target_env:
+        description: "Environment to deploy to"
+        required: true
+        default: "nightly"
+  # workflow_run:
+  #   workflows:
+  #     - "Meta app deploy"
+  #   types:
+  #     - completed
   workflow_dispatch:
     inputs:
       target_env:
@@ -24,6 +30,15 @@ jobs:
   test-app-build-deploy:
     name: Meta deploy test child
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - name: Install the deps
-        run: echo "This is a test run for $inputs.target_env"
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        # GITHUB_REF should be the same as the caller
+      - name: Check branch
+        run: |
+          pwd
+          git branch
+          git log -n 1 --oneline
+      - name: Test parameters
+        run: echo "This is a test run for ${{ inputs.target_env }}"
