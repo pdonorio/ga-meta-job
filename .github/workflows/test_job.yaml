@@ -25,8 +25,9 @@ permissions:
   id-token: write
   contents: write
 
-concurrency:
-  group: deploy-child
+# NOTE: (concurrency is not supported for called workflows)
+# concurrency:
+#   group: deploy-child
 
 jobs:
   test-app-build-deploy:
