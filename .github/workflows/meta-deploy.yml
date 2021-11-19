@@ -1,7 +1,7 @@
 name: Meta app deploy
 
 on:
-  pull_request:
+  push:
 
 permissions:
   id-token: write
