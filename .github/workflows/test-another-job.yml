@@ -1,0 +1,24 @@
+name: Test another workflow
+
+on:
+  repository_dispatch:
+    types: [my-workflows]
+
+concurrency:
+  group: deploy-child-2
+
+jobs:
+  something:
+    name: Meta deploy test child
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        # GITHUB_REF should be the same as the caller
+      - name: Check branch
+        run: |
+          pwd
+          git branch
+          git log -n 1 --oneline
+      - name: Test parameters
+        run: echo "param -> ${{ github.event.client_payload.some }}"
