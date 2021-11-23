@@ -1,6 +1,8 @@
 name: Test workflow
 
 on:
+  repository_dispatch:
+    types: [my-workflows]
   workflow_call:
     inputs:
       target_env:
@@ -26,10 +28,9 @@ on:
 #   id-token: write
 #   contents: write
 
-# NOTE: concurrency is not supported for called workflows
-# TODO: to be investigated
-# concurrency:
-#   group: deploy-child
+# NOTE: concurrency is not supported for workflow_dispatch
+concurrency:
+  group: deploy-child
 
 jobs:
   something:
