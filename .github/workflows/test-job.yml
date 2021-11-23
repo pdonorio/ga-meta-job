@@ -46,7 +46,7 @@ jobs:
           git branch
           git log -n 1 --oneline
       - name: Test parameters
-        run: echo "param -> ${{ github.event.client_payload.some }}"
+        run: echo "param -> ${{ github.event.client_payload.target_env }}"
 
         # run: echo "This is a test run for *${{ inputs.target_env || github.event.inputs.target_env }}*"
         # # NOTE: inputs.target_env is from workflow_call

@@ -45,6 +45,7 @@ jobs:
                 "event_type": "my-workflows",
                 "client_payload": {
                     "some": "value"
+                    "target_env": "${{ github.event.inputs.target_env }}"
                 }
             }'
   # call-workflow-1:
