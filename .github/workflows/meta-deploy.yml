@@ -37,14 +37,17 @@ jobs:
     steps:
       - name: Run single event to dispatch multiple jobs
         run: >
-            curl --location --request POST 'https://api.github.com/repos/pdonorio/ga-meta-job/dispatches'
+            curl
+            --fail
+            --request POST
+            --url 'https://api.github.com/repos/pdonorio/ga-meta-job/dispatches'
             --header 'Content-Type: application/json'
             --header 'Authorization: Bearer ${{ secrets.PAT_DISPATCH }}'
             --header 'Accept: application/vnd.github.everest-preview+json'
             --data-raw '{
                 "event_type": "my-workflows",
                 "client_payload": {
-                    "some": "value"
+                    "some": "value",
                     "target_env": "${{ github.event.inputs.target_env }}"
                 }
             }'
