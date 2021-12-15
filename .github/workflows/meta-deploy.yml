@@ -1,7 +1,7 @@
 name: Meta app deploy
 
 on:
-  # push:
+  push:
   workflow_dispatch:
     inputs:
       target_env:

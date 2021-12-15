@@ -39,15 +39,17 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-        # GITHUB_REF should be the same as the caller
-      - name: Check branch
-        run: |
-          pwd
-          git branch
-          git log -n 1 --oneline
-      - name: Test parameters
-        run: echo "param -> ${{ github.event.client_payload.target_env }}"
+      - name: test
+        run: echo "actor - ${{ github.actor }}"
+      #   # GITHUB_REF should be the same as the caller
+      # - name: Check branch
+      #   run: |
+      #     pwd
+      #     git branch
+      #     git log -n 1 --oneline
+      # - name: Test parameters
+      #   run: echo "param -> ${{ github.event.client_payload.target_env }}"
 
-        # run: echo "This is a test run for *${{ inputs.target_env || github.event.inputs.target_env }}*"
-        # # NOTE: inputs.target_env is from workflow_call
-        # # while github.event.inputs.target_env is from workflow_dispatch
+      #   # run: echo "This is a test run for *${{ inputs.target_env || github.event.inputs.target_env }}*"
+      #   # # NOTE: inputs.target_env is from workflow_call
+      #   # # while github.event.inputs.target_env is from workflow_dispatch
