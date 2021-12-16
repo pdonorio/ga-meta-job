@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Quick test event
-        run: echo "TEST event ${{ guthub.event_name }}"
+        run: echo "TEST event ${{ github.event_name }}"
       - name: Quick test input
         run: echo "TEST event ${{ inputs }}"
       - name: Run single event to dispatch multiple jobs
