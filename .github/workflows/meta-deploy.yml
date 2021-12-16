@@ -35,10 +35,13 @@ jobs:
     name: Meta deploy test parent checkout
     runs-on: ubuntu-latest
     steps:
-      - name: Quick test event
-        run: echo "TEST event ${{ github.event_name }}"
-      - name: Quick test input
-        run: echo "TEST event ${{ inputs }}"
+      - name: Quick test
+        run: |
+          echo "actor - ${{ github.actor }}"
+          echo "TEST event ${{ github.event_name }}"
+          echo "TEST event ${{ github.event }}"
+          echo "TEST event ${{ github.event.action }}"
+          echo "TEST event ${{ github.event.inputs }}"
       - name: Run single event to dispatch multiple jobs
         run: >
             curl
