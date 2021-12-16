@@ -41,6 +41,10 @@ jobs:
         uses: actions/checkout@v2
       - name: test
         run: echo "actor - ${{ github.actor }}"
+      - name: Quick test event
+        run: echo "TEST event ${{ guthub.event_name }}"
+      - name: Quick test input
+        run: echo "TEST event ${{ inputs }}"
       #   # GITHUB_REF should be the same as the caller
       # - name: Check branch
       #   run: |

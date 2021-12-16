@@ -1,9 +1,9 @@
 name: Test another workflow
 
 on:
-  pull_request:
-  # repository_dispatch:
-  #   types: [my-workflows]
+  # pull_request:
+  repository_dispatch:
+    types: [my-workflows-not]
 
 concurrency:
   group: deploy-child-2
