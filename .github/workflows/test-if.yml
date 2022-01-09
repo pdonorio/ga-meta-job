@@ -1,0 +1,33 @@
+name: Test Deploy
+on:
+  workflow_dispatch:
+    inputs:
+      target_env:
+        type: choice
+        description: "Environment to deploy to"
+        required: true
+        default: "nightly"
+        options:
+          - "nightly"
+          - "stage"
+          - "test"
+          - "production"
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        env: ["${{ github.event.inputs.target_env || 'nightly' }}"]
+        os: [macos-latest, ubuntu-latest]
+        include:
+        - { os: macos-latest, platform: ios }
+        - { os: ubuntu-latest, platform: android }
+    name: ${{ matrix.platform }} - ${{ matrix.env }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Verify if user can deploy to production environments
+      if: ${{ matrix.env == 'production' || matrix.env == 'test' }}
+      run: echo hello world
