@@ -31,3 +31,9 @@ jobs:
     - name: Verify if user can deploy to production environments
       if: ${{ matrix.env == 'production' || matrix.env == 'test' }}
       run: echo hello world
+
+    - name: Verify release branch for production deploys
+      if: ${{ matrix.env == 'production' || matrix.env == 'test' }}
+      run: |
+        echo ${{ github.ref }} | grep "^refs\/heads\/release\/" && echo ${{ github.ref }} confirmed || (echo Branch ${{ github.ref }} not allowed for ${{ matrix.env }}; exit 1)
+      # NOTE: expecting github.ref to be /refs/heads/release/X.Y.Z
