@@ -17,15 +17,15 @@ REPO="pdonorio/ga-meta-job"
 
 curl \
     --request POST \
-    --url 'https://api.github.com/repos/${REPO}/actions/workflows/${WORKFLOW}/dispatches' \
-    --fail \
+    --url "https://api.github.com/repos/${REPO}/actions/workflows/${WORKFLOW}/dispatches" \
     --header 'Content-Type: application/json' \
-    --header 'Authorization: Bearer ${TOKEN}' \
+    --header "Authorization: Bearer ${TOKEN}" \
     --header 'Accept: application/vnd.github.everest-preview+json' \
-    --data-raw '{
-        "ref": "${BRANCH}",
-        "inputs": {
-            "testkey": "42",
-            "target_env": "${TARGET_ENV}"
+    --fail \
+    --data-raw "{
+        \"ref\": \"${BRANCH}\",
+        \"inputs\": {
+            \"testkey\": \"42\",
+            \"target_env\": \"${TARGET_ENV}\"
         }
-    }'
+    }"
