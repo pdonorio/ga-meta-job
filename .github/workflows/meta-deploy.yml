@@ -32,6 +32,7 @@ jobs:
             --header 'Authorization: Bearer ${{ secrets.PAT_DISPATCH }}'
             --header 'Accept: application/vnd.github.everest-preview+json'
             --data-raw '{
+                "ref": "${{ github.sha }}",
                 "testkey": "42",
                 "target_env": "${{ github.event.inputs.target_env }}"
             }'
