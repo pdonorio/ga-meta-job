@@ -19,29 +19,10 @@ concurrency:
   group: meta-parent
 
 jobs:
-  # something:
-  #   name: Meta deploy test parent checkout
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v2
-  #       # GITHUB_REF should be the same as the caller
-  #     - name: Check branch
-  #       run: |
-  #         pwd
-  #         git branch
-  #         git log -n 1 --oneline
-  call-workflow-1:
+  magic:
     name: Meta deploy test parent checkout
     runs-on: ubuntu-latest
     steps:
-      - name: Quick test
-        run: |
-          echo "actor - ${{ github.actor }}"
-          echo "TEST event ${{ github.event_name }}"
-          echo "TEST event ${{ github.event }}"
-          echo "TEST event ${{ github.event.action }}"
-          echo "TEST event ${{ github.event.inputs }}"
       - name: Run single event to dispatch multiple jobs
         run: >
             curl
@@ -58,13 +39,3 @@ jobs:
                     "target_env": "${{ github.event.inputs.target_env }}"
                 }
             }'
-  # call-workflow-1:
-  #   name: call
-  #   uses: pdonorio/ga-meta-job/.github/workflows/test-job.yml@main
-  #   with:
-  #     target_env: ${{ github.event.inputs.target_env }}
-  # call-workflow-2:
-  #   name: call
-  #   uses: pdonorio/ga-meta-job/.github/workflows/test-job.yml@main
-  #   with:
-  #     target_env: nightly

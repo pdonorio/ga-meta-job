@@ -1,25 +1,21 @@
 name: Test another workflow
 
 on:
-  # pull_request:
   repository_dispatch:
-    types: [my-workflows-not]
-
-concurrency:
-  group: deploy-child-2
+    types: [my-workflows]
 
 jobs:
   something:
-    name: Meta deploy test child
+    name: Meta deploy test child 2
     runs-on: ubuntu-latest
     steps:
+      - name: Print var
+        run: echo "payload[${{ github.event.client_payload.ref }}] sha[${{ github.sha }}]"
       - name: Checkout repository
         uses: actions/checkout@v2
-        # GITHUB_REF should be the same as the caller
+        # don't use vars
       - name: Check branch
         run: |
           pwd
           git branch
           git log -n 1 --oneline
-      - name: Test parameters
-        run: echo "param -> ${{ github.event.client_payload.target_env }}"

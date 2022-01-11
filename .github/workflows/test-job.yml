@@ -3,58 +3,27 @@ name: Test workflow
 on:
   repository_dispatch:
     types: [my-workflows]
-  workflow_call:
-    inputs:
-      target_env:
-        type: string
-        description: "Environment to deploy to"
-        required: true
-        default: "nightly"
-  # DOES NOT WORK
-  # workflow_run:
-  #   workflows:
-  #     - "Meta app deploy"
-  #   types:
-  #     - completed
-  workflow_dispatch:
-    inputs:
-      target_env:
-        type: string
-        description: "Environment to deploy to"
-        required: true
-        default: "nightly"
-
-permissions:
-  id-token: write
-  contents: write
-
-# NOTE: concurrency is not supported for workflow_dispatch
-concurrency:
-  group: deploy-child
+  # workflow_dispatch:
+  #   inputs:
+  #     target_env:
+  #       type: string
+  #       description: "Environment to deploy to"
+  #       required: true
+  #       default: "nightly"
 
 jobs:
   something:
     name: Meta deploy test child
     runs-on: ubuntu-latest
     steps:
+      - name: Print var
+        run: echo "payload[${{ github.event.client_payload.ref }}] sha[${{ github.sha }}]"
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Quick test
+        with:
+          ref: ${{ github.event.client_payload.ref || github.sha }}
+      - name: Check branch
         run: |
-          echo "actor - ${{ github.actor }}"
-          echo "TEST event ${{ github.event_name }}"
-          echo "TEST event ${{ github.event }}"
-          echo "TEST event ${{ github.event.action }}"
-          echo "TEST event ${{ github.event.inputs }}"
-      #   # GITHUB_REF should be the same as the caller
-      # - name: Check branch
-      #   run: |
-      #     pwd
-      #     git branch
-      #     git log -n 1 --oneline
-      # - name: Test parameters
-      #   run: echo "param -> ${{ github.event.client_payload.target_env }}"
-
-      #   # run: echo "This is a test run for *${{ inputs.target_env || github.event.inputs.target_env }}*"
-      #   # # NOTE: inputs.target_env is from workflow_call
-      #   # # while github.event.inputs.target_env is from workflow_dispatch
+          pwd
+          git branch
+          git log -n 1 --oneline
