@@ -17,6 +17,10 @@ jobs:
     name: Meta-call
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
       - name: Loop and call all workflows
         run: >
             declare -A WORKFLOWS
