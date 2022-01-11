@@ -8,6 +8,10 @@ on:
         description: "Environment to deploy to"
         required: true
         default: "nightly"
+      testkey:
+        type: string
+        description: "test"
+        required: false
 
 jobs:
   something:

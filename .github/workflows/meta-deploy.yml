@@ -33,6 +33,8 @@ jobs:
             --header 'Accept: application/vnd.github.everest-preview+json'
             --data-raw '{
                 "ref": "${{ github.ref }}",
-                "testkey": "42",
-                "target_env": "${{ github.event.inputs.target_env }}"
+                "inputs": {
+                    "testkey": "42",
+                    "target_env": "${{ github.event.inputs.target_env }}"
+                }
             }'
