@@ -19,7 +19,7 @@ concurrency:
 
 jobs:
   magic:
-    name: Meta deploy test parent checkout
+    name: Meta-call ${{matrix.workflow}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
