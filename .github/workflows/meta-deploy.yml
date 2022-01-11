@@ -7,37 +7,28 @@ on:
         type: choice
         description: "Environment to deploy to"
         required: true
-        default: "nightly"
+        default: "dev"
         options:
-          - "nightly"
           - "dev"
           - "stage"
-          - "scratch"
-
-concurrency:
-  group: meta-parent
 
 jobs:
   magic:
-    name: Meta-call ${{matrix.workflow}}
+    name: Meta-call
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        workflow: [test-job.yml, test-another-job.yml]
     steps:
-      - name: Run single event to dispatch multiple jobs
+      - name: Loop and call all workflows
         run: >
-            curl
-            --fail
-            --request POST
-            --url 'https://api.github.com/repos/pdonorio/ga-meta-job/actions/workflows/${{ matrix.workflow }}/dispatches'
-            --header 'Content-Type: application/json'
-            --header 'Authorization: Bearer ${{ secrets.PAT_DISPATCH }}'
-            --header 'Accept: application/vnd.github.everest-preview+json'
-            --data-raw '{
-                "ref": "${{ github.ref }}",
-                "inputs": {
-                    "testkey": "42",
-                    "target_env": "${{ github.event.inputs.target_env }}"
-                }
-            }'
+            declare -A WORKFLOWS
+
+            WORKFLOWS[web]="test-job.yml"
+            WORKFLOWS[desktop]="test-another-job.yml"
+
+            for workflow in ${WORKFLOWS[@]}; do
+                echo "Dispatch on $workflow"
+                .github/scripts/send.sh $workflow $BRANCH $TARGET_ENV
+            done
+        env:
+          TOKEN: ${{ secrets.PAT_DISPATCH }}
+          BRANCH: ${{ github.ref }}
+          TARGET_ENV: ${{ github.event.inputs.target_env }}
