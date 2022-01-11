@@ -1,15 +1,13 @@
 name: Test workflow
 
 on:
-  repository_dispatch:
-    types: [my-workflows]
-  # workflow_dispatch:
-  #   inputs:
-  #     target_env:
-  #       type: string
-  #       description: "Environment to deploy to"
-  #       required: true
-  #       default: "nightly"
+  workflow_dispatch:
+    inputs:
+      target_env:
+        type: string
+        description: "Environment to deploy to"
+        required: true
+        default: "nightly"
 
 jobs:
   something:
@@ -27,3 +25,4 @@ jobs:
           pwd
           git branch
           git log -n 1 --oneline
+          echo ${{ github.event.inputs.testkey }}

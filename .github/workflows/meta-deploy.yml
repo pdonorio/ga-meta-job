@@ -1,7 +1,6 @@
 name: Meta app deploy
 
 on:
-  # push:
   workflow_dispatch:
     inputs:
       target_env:
@@ -28,14 +27,11 @@ jobs:
             curl
             --fail
             --request POST
-            --url 'https://api.github.com/repos/pdonorio/ga-meta-job/dispatches'
+            --url 'https://api.github.com/repos/pdonorio/ga-meta-job/actions/workflows/test-job.yml/dispatches'
             --header 'Content-Type: application/json'
             --header 'Authorization: Bearer ${{ secrets.PAT_DISPATCH }}'
             --header 'Accept: application/vnd.github.everest-preview+json'
             --data-raw '{
-                "event_type": "my-workflows",
-                "client_payload": {
-                    "some": "value",
-                    "target_env": "${{ github.event.inputs.target_env }}"
-                }
+                "testkey": "42",
+                "target_env": "${{ github.event.inputs.target_env }}"
             }'
