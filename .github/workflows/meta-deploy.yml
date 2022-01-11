@@ -21,13 +21,16 @@ jobs:
   magic:
     name: Meta deploy test parent checkout
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        workflow: [test-job.yml, test-another-job.yml]
     steps:
       - name: Run single event to dispatch multiple jobs
         run: >
             curl
             --fail
             --request POST
-            --url 'https://api.github.com/repos/pdonorio/ga-meta-job/actions/workflows/test-job.yml/dispatches'
+            --url 'https://api.github.com/repos/pdonorio/ga-meta-job/actions/workflows/${{ matrix.workflow }}/dispatches'
             --header 'Content-Type: application/json'
             --header 'Authorization: Bearer ${{ secrets.PAT_DISPATCH }}'
             --header 'Accept: application/vnd.github.everest-preview+json'

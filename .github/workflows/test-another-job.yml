@@ -1,8 +1,17 @@
 name: Test another workflow
 
 on:
-  repository_dispatch:
-    types: [my-workflows]
+  workflow_dispatch:
+    inputs:
+      target_env:
+        type: string
+        description: "Environment to deploy to"
+        required: true
+        default: "nightly"
+      testkey:
+        type: string
+        description: "test"
+        required: false
 
 jobs:
   something:
