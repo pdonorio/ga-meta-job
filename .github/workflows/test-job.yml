@@ -19,7 +19,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print var
-        run: echo "payload[${{ github.event.client_payload.ref }}] sha[${{ github.sha }}]"
+        run: |
+          echo "payload[${{ github.event.client_payload.ref }}] sha[${{ github.sha }}]"
+          echo "event name: *${{ github.event_name }} - action:
+          ${{ github.event.action  }}*"
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
