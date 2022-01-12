@@ -18,6 +18,8 @@ jobs:
     name: Meta deploy test child
     runs-on: ubuntu-latest
     steps:
+      - name: debug
+        uses: hmarr/debug-action@v2
       - name: Print var
         run: |
           echo "payload[${{ github.event.client_payload.ref }}] sha[${{ github.sha }}]"
