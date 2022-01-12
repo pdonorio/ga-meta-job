@@ -26,7 +26,6 @@ jobs:
             declare -A WORKFLOWS
 
             WORKFLOWS[web]="test-job.yml"
-            WORKFLOWS[desktop]="test-another-job.yml"
 
             for workflow in ${WORKFLOWS[@]}; do
                 echo "Dispatch on $workflow"

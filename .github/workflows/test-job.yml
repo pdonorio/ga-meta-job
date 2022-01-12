@@ -21,8 +21,7 @@ jobs:
       - name: Print var
         run: |
           echo "payload[${{ github.event.client_payload.ref }}] sha[${{ github.sha }}]"
-          echo "event name: *${{ github.event_name }} - action:
-          ${{ github.event.action  }}*"
+          echo "event name: *${{ github.event_name }}* - action: *${{ github.event  }}* - path *${{ github.event_path }}*"
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
